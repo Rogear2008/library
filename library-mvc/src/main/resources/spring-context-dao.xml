@@ -7,27 +7,23 @@
         http://www.springframework.org/schema/context
         https://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- 加载配置文件 -->
-    <context:property-placeholder location="classpath:jdbc.properties"/>
-    <context:property-placeholder location="classpath:mybatis-config.xml"/>
+    <context:property-placeholder location="classpath:db.properties"/>
 
-    <!-- 配置数据库连接池-->
-    <bean id="myDatasource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+    <!--打开扫描-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.rogear.library.dao"/>
+    </bean>
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="${jdbc.driverClass}"/>
         <property name="url" value="${jdbc.connectionURL}"/>
         <property name="username" value="${jdbc.userId}"/>
         <property name="password" value="${jdbc.password}"/>
     </bean>
 
-    <!-- sqlSessionFactory -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="myDatasource"/>
-        <property name="configLocation" value="mybatis-config.xml"/>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath:/com/rogear/library/dao/mapper/*.xml"/>
     </bean>
-
-    <!-- 配置扫描包 -->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.rogear.library.dao"/>
-    </bean>
-
 </beans>

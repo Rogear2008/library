@@ -7,7 +7,5 @@
         http://www.springframework.org/schema/context
         https://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--扫描service层-->
     <context:component-scan base-package="com.rogear.library.service"/>
-
 </beans>
