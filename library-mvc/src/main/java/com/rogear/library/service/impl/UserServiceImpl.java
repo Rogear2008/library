@@ -2,9 +2,12 @@ package com.rogear.library.service.impl;
 
 import com.rogear.library.dao.UserMapper;
 import com.rogear.library.pojo.User;
+import com.rogear.library.pojo.UserExample;
 import com.rogear.library.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by Rogear on 2020/4/21
@@ -21,5 +24,32 @@ public class UserServiceImpl implements UserService {
     @Override
     public User selectById(int id) {
         return userMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public List<User> selectByExample(User user) {
+        UserExample userExample = new UserExample();
+        if (null != user.getUsername()){
+            userExample.createCriteria().andUsernameLike(user.getUsername());
+        }
+        return userMapper.selectByExample(userExample);
+    }
+
+    @Override
+    public int insert(User user) {
+        if (null != user.getId()){
+            user.setId(null);
+        }
+        return userMapper.insertSelective(user);
+    }
+
+    @Override
+    public int deleteByPrimaryKey(Integer id) {
+        return userMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int updateByPrimaryKey(User user) {
+        return userMapper.updateByPrimaryKey(user);
     }
 }
