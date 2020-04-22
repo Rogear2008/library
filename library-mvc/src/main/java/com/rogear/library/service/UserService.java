@@ -1,5 +1,6 @@
 package com.rogear.library.service;
 
+import com.rogear.library.common.pojo.EUDataGridResult;
 import com.rogear.library.pojo.User;
 
 import java.util.List;
@@ -12,6 +13,8 @@ public interface UserService {
     User selectById(int id);
 
     List<User> selectByExample(User user);
+
+    EUDataGridResult selectByPage(int page, int size);
 
     int insert(User user);
 

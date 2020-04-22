@@ -1,7 +1,9 @@
 package com.rogear.library.controller;
 
+import com.rogear.library.common.pojo.EUDataGridResult;
 import com.rogear.library.pojo.User;
 import com.rogear.library.service.UserService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,8 @@ import java.util.List;
 @RequestMapping("user")
 public class UserController {
 
+    private Logger LOGGER = Logger.getLogger(UserController.class);
+
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -22,6 +26,7 @@ public class UserController {
 
     @GetMapping("/selectById")
     public String selectById(@RequestParam int id){
+        LOGGER.info("selectById,id : "+ id);
         return userService.selectById(id).toString();
     }
 
@@ -29,6 +34,13 @@ public class UserController {
     public String selectByUsername(@RequestBody User user){
         List<User> userList = userService.selectByExample(user);
         return userList.toString();
+    }
+
+    @GetMapping("/selectByPage")
+    public EUDataGridResult selectByPage(@RequestParam(name = "page",defaultValue = "1") int page,
+                                         @RequestParam(name = "size",defaultValue = "20") int size){
+        EUDataGridResult result = userService.selectByPage(page,size);
+        return result;
     }
 
     @PostMapping("/insert")

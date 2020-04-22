@@ -11,6 +11,6 @@
     <title>404</title>
 </head>
 <body>
-
+    <p>404</p>
 </body>
 </html>

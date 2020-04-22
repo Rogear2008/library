@@ -1,9 +1,11 @@
 package com.rogear.library.service.impl;
 
+import com.rogear.library.common.pojo.EUDataGridResult;
 import com.rogear.library.dao.UserMapper;
 import com.rogear.library.pojo.User;
 import com.rogear.library.pojo.UserExample;
 import com.rogear.library.service.UserService;
+import com.rogear.library.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,10 +38,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public EUDataGridResult selectByPage(int page, int size) {
+        UserExample userExample = new UserExample();
+        List<User> userList = userMapper.selectByExample(userExample);
+        EUDataGridResult result = new EUDataGridResult();
+        result.setTotal(userList.size());
+        result.setRows(userList);
+        return result;
+    }
+
+    @Override
     public int insert(User user) {
-        if (null != user.getId()){
-            user.setId(null);
-        }
+        user.setId(null);
+        user.setPassword(MD5Util.encode(user.getPassword()));
         return userMapper.insertSelective(user);
     }
 
