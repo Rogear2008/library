@@ -33,6 +33,10 @@
         <a href="javascript:openUserUpdateDialog()" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改</a>
         <a href="javascript:deleteUser()" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
     </div>
+    <div>
+        姓名：<input id="str" type="text" onkeyup="selectUser()"/> <a
+            href="javascript:selectUser()" class="easyui-linkbutton" iconCls="icon-search" plain="true">查询</a>
+    </div>
 </div>
 
 <div id="dlg" class="easyui-dialog" style="width: 850px;height: 555px;padding: 10px 20px;position: relative;z-index: 1000"
@@ -71,7 +75,7 @@
             },
             success:function (result) {
                 if (result = "1"){
-                    $.messager.alert("系统提示","保存成功！"+result);
+                    $.messager.alert("系统提示","保存成功！");
                 } else {
                     $.messager.alert("系统提示","保存失败！");
                 }
@@ -101,11 +105,12 @@
             return
         }
         var id = selectedRows[0].id;
-        $.messager.confirm("系统提示","确认要删除这条数据吗？"),
+        $.messager.confirm("系统提示","确认要删除这条数据吗？",
             function (r) {
                 if (r){
                     $.ajax({
                         url:"${pageContext.request.contextPath}/user/deleteById",
+                        contentType:"application/json",
                         data:{id:id},
                         success:function (result) {
                             if (result = "1"){
@@ -115,9 +120,16 @@
                                 $.messager.alert("系统提示","删除失败！")
                             }
                         }
-                    })
+                    });
                 }
-            }
+            })
+    }
+
+    function selectUser(){
+        var username = $("#str").val();
+        $("#dg").datagrid("load",{
+            "username":username
+        })
     }
 </script>
 </body>

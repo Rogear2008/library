@@ -4,6 +4,7 @@ import com.rogear.library.common.pojo.EUDataGridResult;
 import com.rogear.library.pojo.User;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Rogear on 2020/4/21
@@ -14,7 +15,7 @@ public interface UserService {
 
     List<User> selectByExample(User user);
 
-    EUDataGridResult selectByPage(int page, int size);
+    EUDataGridResult selectByPage(int page, int size, String username);
 
     int insert(User user);
 

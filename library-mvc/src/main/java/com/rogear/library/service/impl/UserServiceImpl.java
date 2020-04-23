@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Rogear on 2020/4/21
@@ -39,8 +40,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public EUDataGridResult selectByPage(int page, int size) {
+    public EUDataGridResult selectByPage(int page, int size, String username) {
         UserExample userExample = new UserExample();
+        if (!username.isEmpty()){
+            userExample.createCriteria().andUsernameLike("%"+username+"%");
+        }
         List<User> userList = userMapper.selectByExample(userExample);
         EUDataGridResult result = new EUDataGridResult();
         result.setTotal(userList.size());
