@@ -9,6 +9,7 @@ import com.rogear.library.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -51,6 +52,7 @@ public class UserServiceImpl implements UserService {
     public int insert(User user) {
         user.setId(null);
         user.setPassword(MD5Util.encode(user.getPassword()));
+        user.setLastUpdateTime(new Date());
         return userMapper.insertSelective(user);
     }
 
@@ -61,6 +63,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int updateByPrimaryKey(User user) {
+        user.setPassword(MD5Util.encode(user.getPassword()));
+        user.setLastUpdateTime(new Date());
         return userMapper.updateByPrimaryKey(user);
     }
 }

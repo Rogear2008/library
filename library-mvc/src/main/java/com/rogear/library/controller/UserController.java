@@ -43,20 +43,20 @@ public class UserController {
         return result;
     }
 
-    @PostMapping("/insert")
-    public String insert(@RequestBody User user){
+    @PostMapping(value = "/insert",consumes = "application/x-www-form-urlencoded")
+    public String insert(User user){
         int insert = userService.insert(user);
         return String.valueOf(insert);
     }
 
-    @PostMapping("/deleteById")
-    public String deleteById(@RequestParam int id){
+    @PostMapping(value = "/deleteById",consumes = "application/x-www-form-urlencoded")
+    public String deleteById(int id){
         int i = userService.deleteByPrimaryKey(id);
         return String.valueOf(i);
     }
 
-    @DeleteMapping("/delete")
-    public String update(@RequestBody User user){
+    @PostMapping(value = "/update",consumes = "application/x-www-form-urlencoded")
+    public String update( User user){
         int i = userService.updateByPrimaryKey(user);
         return String.valueOf(i);
     }

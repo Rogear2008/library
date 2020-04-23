@@ -1,5 +1,7 @@
 package com.rogear.library.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 /**
@@ -61,6 +63,7 @@ public class User {
      *
      * @mbg.generated Tue Apr 21 11:30:34 CST 2020
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date lastUpdateTime;
 
     /**
