@@ -11,6 +11,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <jsp:include page="jqueryHead.jsp"/>
+    <link rel="shortcut icon" href="#" />
     <title>用户信息</title>
 </head>
 <body>
@@ -21,6 +22,7 @@
         <th data-options="field:'ck',checkbox:true"></th>
         <th data-options="field:'id',width:50">用户ID</th>
         <th data-options="field:'username',width:50">用户名</th>
+        <th field="imagePath" width="50" formatter="formatPic">头  像</th>
         <th data-options="field:'password',width:50">密  码</th>
         <th data-options="field:'lastUpdateTime',width:50">最后更新时间</th>
     </tr>
@@ -51,6 +53,10 @@
             <tr>
                 <td>密  码：</td>
                 <td><input id="password" type="password" name="password" class="easyui-checkbox" required="true"><font color="red">*</font></td>
+            </tr>
+            <tr>
+                <td>头像</td>
+                <td><input id="file" type="file" name="file" class="easyui-checkbox"></td>
             </tr>
         </table>
     </form>
@@ -112,6 +118,7 @@
                         url:"${pageContext.request.contextPath}/user/deleteById",
                         contentType:"application/json",
                         data:{id:id},
+                        type:"POST",
                         success:function (result) {
                             if (result = "1"){
                                 $.messager.alert("系统提示","删除成功！");
@@ -130,6 +137,12 @@
         $("#dg").datagrid("load",{
             "username":username
         })
+    }
+
+    function formatPic(val,row){
+        if (null != val){
+            return "<img src='${pageContext.request.contextPath}"+ val +"' width=100 height=100>"
+        }
     }
 </script>
 </body>

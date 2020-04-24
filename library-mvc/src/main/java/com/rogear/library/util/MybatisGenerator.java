@@ -21,7 +21,7 @@ public class MybatisGenerator {
     public static void main(String[] args) throws IOException, XMLParserException, InvalidConfigurationException, SQLException, InterruptedException {
         List<String> warnings = new ArrayList<String>();
         boolean overwrite = true;
-        File configFile = new File("F:\\Github\\library-mvc\\src\\main\\resources\\generatorConfig.xml");
+        File configFile = new File("F:\\Github\\library\\library-mvc\\src\\main\\resources\\generatorConfig.xml");
         ConfigurationParser cp = new ConfigurationParser(warnings);
         Configuration config = cp.parseConfiguration(configFile);
         DefaultShellCallback callback = new DefaultShellCallback(overwrite);

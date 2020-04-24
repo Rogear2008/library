@@ -27,16 +27,16 @@
             <property name="forceBigDecimals" value="false" />
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="com.rogear.library.pojo" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="com.rogear.library.pojo" targetProject="library-mvc/src/main/java">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="com.rogear.library.dao.mapper" targetProject="src/main/resources">
+        <sqlMapGenerator targetPackage="com.rogear.library.dao.mapper" targetProject="library-mvc/src/main/resources">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.rogear.library.dao" targetProject="src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.rogear.library.dao" targetProject="library-mvc/src/main/java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
