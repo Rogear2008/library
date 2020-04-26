@@ -58,8 +58,9 @@ public class UserController {
     }
 
 //    @PostMapping(value = "/deleteById",consumes = "application/x-www-form-urlencoded")
-    @RequestMapping("/deleteById")
-    public String deleteById(@RequestParam(value = "id") int id){
+    @ResponseBody
+    @RequestMapping(value = "/deleteById/{id}",method = RequestMethod.POST)
+    public String deleteById(@PathVariable int id){
         int i = userService.deleteByPrimaryKey(id);
         return String.valueOf(i);
     }

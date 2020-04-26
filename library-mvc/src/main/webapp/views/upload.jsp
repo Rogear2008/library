@@ -16,9 +16,8 @@
 <div>
     <form method="post" id="file" action="" enctype="multipart/form-data">
             <h3>选择一个文件:</h3>
-            <input id="excelFile" type="file" name="uploadFile" />
+            <input id="excelFile" type="file" name="file" />
             <br/><br/>
-            <input type="button" value="上传" οnclick="javascript:uploadFiles()"/>
         <a href="javascript:uploadFiles()" class="easyui-linkbutton">上传</a>
     </form>
 </div>
@@ -30,7 +29,7 @@
         console.log(uploadFile);
         if("undefined" != typeof(uploadFile) && uploadFile != null && uploadFile != ""){
             $.ajax({
-                url:'${pageContext.request.contextPath}/upload',
+                url:'${pageContext.request.contextPath}/uploadPic',
                 type:'POST',
                 data:uploadFile,
                 async: false,
@@ -39,7 +38,7 @@
                 processData: false, //不处理数据
                 success:function(data){
                     console.log(data);
-                    alert(data.msg);
+                    alert(data);
                 },
                 error:function(){
                     alert("上传失败！");

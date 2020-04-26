@@ -48,15 +48,18 @@
         <table cellspacing="8px">
             <tr>
                 <td>用户名：</td>
-                <td><input id="username" type="text" name="username" class="easyui-checkbox" required="true"><font color="red">*</font></td>
+                <td><input id="username" type="text" name="username" class="easyui-checkbox easyui-validatebox" required="true"><font color="red">*</font></td>
             </tr>
             <tr>
                 <td>密  码：</td>
-                <td><input id="password" type="password" name="password" class="easyui-checkbox" required="true"><font color="red">*</font></td>
+                <td><input id="password" type="password" name="password" class="easyui-checkbox easyui-validatebox" required="true"><font color="red">*</font></td>
             </tr>
             <tr>
                 <td>头像</td>
-                <td><input id="file" type="file" name="file" class="easyui-checkbox"></td>
+                <td><input id="file" type="file" name="file" class="easyui-checkbox">
+                    <a href="javascript:uploadPic()" class="easyui-linkbutton">上传</a><br/>
+<%--                    <img id="img" src="${pageContext.request.contextPath}/images/1.png"/>--%>
+                <input id="imagePath" type="text" style="display: none" name="imagePath"></td>
             </tr>
         </table>
     </form>
@@ -111,20 +114,21 @@
             return
         }
         var id = selectedRows[0].id;
+        var data = JSON.stringify({'id':111});
         $.messager.confirm("系统提示","确认要删除这条数据吗？",
             function (r) {
                 if (r){
                     $.ajax({
-                        url:"${pageContext.request.contextPath}/user/deleteById",
-                        contentType:"application/json",
-                        data:{id:id},
-                        type:"POST",
+                        url:'${pageContext.request.contextPath}/user/deleteById/'+ id,
+                        contentType:'application/json',
+                        data:{abc:id},
+                        type:'POST',
                         success:function (result) {
-                            if (result = "1"){
+                            if (result == "1"){
                                 $.messager.alert("系统提示","删除成功！");
                                 $("#dg").datagrid("reload");
                             }else {
-                                $.messager.alert("系统提示","删除失败！")
+                                $.messager.alert("系统提示","删除失败！");
                             }
                         }
                     });
@@ -144,6 +148,38 @@
             return "<img src='${pageContext.request.contextPath}"+ val +"' width=100 height=100>"
         }
     }
+
+    function uploadPic() {
+        var formData = new FormData($("#fm")[0]);
+        console.log("formData:"+formData);
+        if ("undefined" != typeof(formData) && formData != null){
+            $.ajax({
+                url:'${pageContext.request.contextPath}/uploadPic',
+                type:'POST',
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    if (data != "0"){
+                        $("#imagePath").val(data);
+                        $.messager.alert("系统提示","图片上传成功");
+                    } else {
+                        $.messager.alert("系统提示","图片上传失败");
+                    }
+                },
+                error: function () {
+                    $.messager.alert("系统提示","图片上传失败");
+                }
+                }
+            )
+        } else {
+            $.messager.alert("系统提示","数据异常");
+        }
+    }
+
+
 </script>
 </body>
 </html>

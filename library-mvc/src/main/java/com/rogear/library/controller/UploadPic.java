@@ -2,10 +2,14 @@ package com.rogear.library.controller;
 
 import org.apache.commons.io.FileUtils;
 import org.aspectj.util.FileUtil;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,11 +25,14 @@ import java.util.Random;
 /**
  * Created by Rogear on 2020/4/24
  **/
+@Controller
 public class UploadPic {
 
-    @RequestMapping("/uploadPic")
-    public String uploadPic(@RequestParam("file")MultipartFile file) throws IOException {
-        String dir = "/images";
+    @ResponseBody
+    @RequestMapping(value = "/uploadPic",method = RequestMethod.POST)
+    public String uploadPic(@RequestParam MultipartFile file) throws IOException {
+        HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+        String dir = request.getServletContext().getRealPath("/images");
         String type = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."),file.getOriginalFilename().length());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
         String preName = simpleDateFormat.format(new Date());
@@ -34,10 +41,10 @@ public class UploadPic {
         if (type.equals(".jpg") || type.equals(".jpeg") || type.equals(".png")){
             fileName = fileName.append("_"+random.nextInt(10)).append(type);
         } else {
-            return "0";
+            return null;
         }
         FileUtils.writeByteArrayToFile(new File(dir,fileName.toString()),file.getBytes());
-        return fileName.toString();
+        return "/images/" + fileName.toString();
     }
 
     @RequestMapping(value = "/uploadHeadPic"
@@ -77,15 +84,6 @@ public class UploadPic {
         }
 
         return null;
-    }
-
-
-    @RequestMapping(value="/upload", method=RequestMethod.POST)
-//    @ResponseBody
-    public String uploadFile(HttpServletRequest request,
-                                          @RequestParam MultipartFile uploadFile){
-        Map<String,  Object> resultMap = new HashMap<>();
-        return "123";
     }
 
 }

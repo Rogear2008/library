@@ -38,7 +38,8 @@
         <tr>
             <td style="width:50%"></td>
             <td valign="bottom" style="font-size:20px;color:#8B8B8B;font-family: 楷体;"align="right" whidth="50%">
-                <font size="3"><strong>当前管理员：</strong> ${currentUser.username}</font>
+                <font size="3"><strong>当前管理员：</strong> ${currentUser.username}</font><br/>
+                <a href="${pageContext.request.contextPath}/logOut" class="easyui-linkbutton">退出</a>
             </td>
         </tr>
     </table>
