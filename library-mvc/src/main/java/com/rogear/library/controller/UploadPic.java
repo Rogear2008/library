@@ -47,43 +47,4 @@ public class UploadPic {
         return "/images/" + fileName.toString();
     }
 
-    @RequestMapping(value = "/uploadHeadPic"
-            //, method = RequestMethod.POST
-            //, produces = "application/json; charset=utf-8"
-    )
-//    @ResponseBody
-    public Object uploadHeadPic(@RequestParam() MultipartFile file, HttpServletRequest request) {
-        //在这里面文件存储的方案一般是：收到文件→获取文件名→在本地存储目录建立防重名文件→写入文件→返回成功信息
-        //如果上面的步骤中在结束前任意一步失败，那就直接失败了。
-        FileOutputStream out=null;
-        if (null == file || file.isEmpty()) {
-            System.out.println("文件为空");
-        }else{
-            System.out.println("上传成功");
-            //这里以用户ID作为文件夹
-            int uid = (Integer) request.getSession().getAttribute("userid");
-            //创建一个文件夹，网上代码很多
-            String url = "/images";
-            try {
-                //获得二进制流并输出
-                byte[] f = file.getBytes();
-                out = new FileOutputStream(url+file.getOriginalFilename());
-                out.write(f);
-
-            } catch (IOException e) {
-                System.out.println("上传失败");
-            }finally {
-                // 完毕，关闭所有链接
-                try {
-                    out.close();
-                } catch (IOException e) {
-                    System.out.println("关闭流失败");
-                }
-            }
-
-        }
-
-        return null;
-    }
-
 }

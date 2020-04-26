@@ -10,6 +10,7 @@
 <head>
     <title>系统主页</title>
     <jsp:include page="views/jqueryHead.jsp"/>
+    <jsp:include page="login_check.jsp"/>
     <script>
         function addTab(text,url,iconCls){
             var content = "<iframe frameborder=0 scrolling='auto' style='width:100%;height:100%' src='${pageContext.request.contextPath}/views/"+ url +"'></iframe>";
