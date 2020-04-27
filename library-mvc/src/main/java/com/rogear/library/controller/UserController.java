@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -44,9 +45,9 @@ public class UserController {
     }
 
     @GetMapping("/selectByPage")
-    public EUDataGridResult selectByPage(@RequestParam(name = "page",defaultValue = "1") Integer page,
-                                         @RequestParam(name = "size",defaultValue = "20") Integer size,
-                                         @RequestParam(name = "username",defaultValue = "") String username){
+    public EUDataGridResult selectByPage(@RequestParam(name = "page",required = false) Integer page,
+                                         @RequestParam(name = "rows",required = false) Integer size,
+                                         @RequestParam(name = "username",defaultValue = "") String username, HttpServletRequest request){
         EUDataGridResult result = userService.selectByPage(page,size,username);
         return result;
     }

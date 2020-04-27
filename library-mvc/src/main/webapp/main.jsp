@@ -53,10 +53,13 @@
     </div>
 </div>
 <div region="west" style="width:200px;" title="导航菜单" split="true">
-    <div class="easyui-accordin">
-        <div title="用户管理" data-options="selected:true,iconCls:'icon-users'" style="height:10px">
+    <div class="easyui-accordion">
+        <div title="用户管理" data-options="selected:true,iconCls:'icon-users'" style="height:10px;padding:10px">
             <a href="javascript:openTab(' 用户管理','user.jsp','icon-lxr')" class="easyui-linkbutton"
                data-options="plain:true,iconCls:'icon-user'">查看用户</a>
+        </div>
+        <div title="其它管理" iconCls="icon-users" style="height: 10px;padding: 10px">
+            <a href="#" class="easyui-linkbutton">其它管理</a>
         </div>
     </div>
 </div>

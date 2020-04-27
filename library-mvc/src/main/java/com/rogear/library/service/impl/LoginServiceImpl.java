@@ -31,7 +31,7 @@ public class LoginServiceImpl implements LoginService {
 
         System.out.println("username:"+user.getUsername()+" password:"+MD5Util.encode(user.getPassword()));
         List<User> users = userMapper.selectByExample(userExample);
-        if (!users.isEmpty() && users.size() == 1){
+        if (!users.isEmpty() && users.size() > 0){
             httpSession.setAttribute("currentUser",users.get(0));
             return true;
         } else {

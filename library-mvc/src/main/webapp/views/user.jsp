@@ -15,8 +15,10 @@
     <title>用户信息</title>
 </head>
 <body>
-<table id="dg" title="用户信息" class="easyui-datagrid" style="width:400px;height:250px" pagenation="true" rownums="true" fit="true"
-       data-options="method:'get',url:'${pageContext.request.contextPath}/user/selectByPage',fitColumns:true,singleSelect:true" toolbar="#tb">
+<table id="dg" title="用户信息" class="easyui-datagrid" style="width:400px;height:250px"
+<%--          pagenation="true" rownums="true" fit="true" pageNumber="1" pageSize="10"
+        data-options="method:'get',url:'${pageContext.request.contextPath}/user/selectByPage',fitColumns:true,singleSelect:true,pageSize:10,pageNumber:1" --%>
+       toolbar="#tb">
     <thead>
     <tr>
         <th data-options="field:'ck',checkbox:true"></th>
@@ -70,7 +72,26 @@
 </div>
 
 <script type="text/javascript">
-    var url
+
+    $("#dg").datagrid({
+        method: 'get',
+        // width: 'auto',
+        // height: 800,
+        url: '${pageContext.request.contextPath}/user/selectByPage',
+        fitColumns: true,
+        fit: true,
+        singleSelect: true,
+        pagination: true,
+        rownumbers: true
+    });
+
+    var page = $("#dg").datagrid('getPager');
+    $(page).pagination({
+        pageSize: 10,
+        pageNumber: 1
+    });
+
+    var url;
     function openUserAddDialog() {
         $("#dlg").dialog("open").dialog("setTitle","新增用户");
         url = "${pageContext.request.contextPath}/user/insert";

@@ -1,5 +1,7 @@
 package com.rogear.library.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.rogear.library.common.pojo.EUDataGridResult;
 import com.rogear.library.dao.UserMapper;
 import com.rogear.library.pojo.User;
@@ -40,14 +42,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public EUDataGridResult selectByPage(int page, int size, String username) {
+    public EUDataGridResult selectByPage(Integer page, Integer size, String username) {
         UserExample userExample = new UserExample();
         if (!username.isEmpty()){
             userExample.createCriteria().andUsernameLike("%"+username+"%");
         }
+        if (null != page && null != size){
+            PageHelper.startPage(page,size);
+        }
         List<User> userList = userMapper.selectByExample(userExample);
+        PageInfo pageInfo = new PageInfo(userList);
         EUDataGridResult result = new EUDataGridResult();
-        result.setTotal(userList.size());
+        result.setTotal((int)pageInfo.getTotal());
         result.setRows(userList);
         return result;
     }

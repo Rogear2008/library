@@ -15,7 +15,7 @@ public interface UserService {
 
     List<User> selectByExample(User user);
 
-    EUDataGridResult selectByPage(int page, int size, String username);
+    EUDataGridResult selectByPage(Integer page, Integer size, String username);
 
     int insert(User user);
 

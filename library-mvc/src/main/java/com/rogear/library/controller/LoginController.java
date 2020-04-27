@@ -32,14 +32,14 @@ public class LoginController {
         }
     }
 
-    @ResponseBody
+
     @RequestMapping("/logOut")
     public String logOut(){
         boolean result = loginService.logOut();
         if (result){
-            return "1";
+            return "redirect:/login.jsp";
         } else {
-            return "0";
+            return null;
         }
     }
 }
